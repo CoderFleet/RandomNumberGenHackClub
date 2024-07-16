@@ -7,9 +7,14 @@ Hey everyone! I've been diving into the world of random number generators. This 
 ## How Random Number Generators Work
 
 From what I've been reading, random number generators start with a seed (a starting number) and use methods like a linear congruential generator (LCG). This method applies mathematical formulas to produce a sequence of numbers that appear random. It's interesting to note that there are no 'true' random number generators—they simply generate numbers that look random to us, but they follow predictable patterns.
+
 ![Random Number Generator](https://github.com/CoderFleet/RandomNumberGenHackClub/blob/main/image.png)
 
 ## Project Details
+
+### Objectives
+
+The primary goal of this project is to develop a custom random number generator in Python. This generator will initially produce numbers between 0 and 1 and will later extend to generate integers and allow customization of the range of numbers generated.
 
 ### Stage 1: Generating Random Numbers Between 0 and 1
 
@@ -26,6 +31,17 @@ In my exploration, I'm also looking into extending the generator to produce whol
 ### Stage 4: Seeding and Reproducibility
 
 Another aspect I'm researching is how to seed the generator with specific values to reproduce the same sequence of random numbers. This is crucial for testing and debugging purposes, where reproducibility of results is desired.
+
+## After Full Info Gathering and Research
+
+#### 1
+To kick off, I'll start with a simple implementation using the current time as a seed. The core mathematics here will involve implementing a linear congruential generator (LCG) algorithm. This algorithm uses multiplication, addition, and modulus operations to produce a sequence of pseudo-random numbers.
+
+#### 2
+As I progress, I'll explore methods to improve the randomness and distribution of the generated numbers. This stage may involve experimenting with more advanced algorithms such as the Mersenne Twister or cryptographic algorithms like Blum Blum Shub. I'll dive into the mathematics behind these algorithms to understand how they achieve better randomness.
+
+#### 3
+Next, I'll extend the generator to produce integers and allow users to specify custom ranges for the generated numbers. This will require additional mathematical operations such as scaling, rounding, and possibly implementing transformation functions to map decimal outputs to integers within specified ranges.
 
 ---
 
