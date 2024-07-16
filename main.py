@@ -35,7 +35,6 @@ class EnhancedRandomGenerator:
         return [self.generate() for _ in range(num_samples)]
     
     def random_normal(self, mean, std_dev, num_samples):
-        # Box-Muller transform for generating normal distribution
         results = []
         for _ in range(num_samples // 2):
             u1 = self.generate()
@@ -49,7 +48,6 @@ class EnhancedRandomGenerator:
         return results
     
     def random_exponential(self, rate, num_samples):
-        # Generating samples from exponential distribution
         results = []
         for _ in range(num_samples):
             u = self.generate()
@@ -57,7 +55,6 @@ class EnhancedRandomGenerator:
         return results
     
     def random_binomial(self, n, p, num_samples):
-        # Generate samples from binomial distribution using Bernoullii trials
         results = []
         for _ in range(num_samples):
             count = 0
@@ -67,31 +64,95 @@ class EnhancedRandomGenerator:
             results.append(count)
         return results
     
-if __name__ == "__main__":
+    def random_poisson(self, lam, num_samples):
+        results = []
+        for _ in range(num_samples):
+            l = np.exp(-lam)
+            k = 0
+            p = 1
+            while p > l:
+                k += 1
+                p *= self.generate()
+            results.append(k - 1)
+        return results
+    
+    def random_geometric(self, p, num_samples):
+        results = []
+        for _ in range(num_samples):
+            results.append(int(np.ceil(np.log(1 - self.generate()) / np.log(1 - p))))
+        return results
+    
+    def random_choice(self, choices, probabilities, num_samples):
+        results = []
+        cumulative_probs = np.cumsum(probabilities)
+        for _ in range(num_samples):
+            r = self.generate()
+            for i, cp in enumerate(cumulative_probs):
+                if r < cp:
+                    results.append(choices[i])
+                    break
+        return results
+
+def main():
     rng = EnhancedRandomGenerator()
     
-    # Generate 10 random float numbers between 0 and 1
-    print("Generating random float numbers between 0 and 1:")
-    for _ in range(10):
-        print(rng.generate())
-    
-    # Generate 10 random integers between 1 and 10
-    print("\nGenerating random integers between 1 and 10:")
-    for _ in range(10):
-        print(rng.generate_int(1, 10))
-    
-    # Generate 5 samples from a uniform distribution
-    print("\nGenerating 5 samples from a uniform distribution:")
-    print(rng.random_uniform(5))
-    
-    # Generate 6 samples from a normal distribution with mean 0 and std_dev 1
-    print("\nGenerating 6 samples from a normal distribution:")
-    print(rng.random_normal(0, 1, 6))
-    
-    # Generate 5 samples from an exponential distribution with rate 0.5
-    print("\nGenerating 5 samples from an exponential distribution:")
-    print(rng.random_exponential(0.5, 5))
-    
-    # Generate 10 samples from a binomial distribution with n=10, p=0.3
-    print("\nGenerating 10 samples from a binomial distribution:")
-    print(rng.random_binomial(10, 0.3, 10))
+    while True:
+        print("\nRandom Number Generator Menu")
+        print("1. Generate random float between 0 and 1")
+        print("2. Generate random integer between two values")
+        print("3. Generate random numbers from a uniform distribution")
+        print("4. Generate random numbers from a normal distribution")
+        print("5. Generate random numbers from an exponential distribution")
+        print("6. Generate random numbers from a binomial distribution")
+        print("7. Generate random numbers from a Poisson distribution")
+        print("8. Generate random numbers from a geometric distribution")
+        print("9. Generate random choices from a list")
+        print("10. Exit")
+        
+        choice = int(input("Enter your choice: "))
+        
+        if choice == 1:
+            for _ in range(10):
+                print(rng.generate())
+        elif choice == 2:
+            low = int(input("Enter low value: "))
+            high = int(input("Enter high value: "))
+            for _ in range(10):
+                print(rng.generate_int(low, high))
+        elif choice == 3:
+            num_samples = int(input("Enter number of samples: "))
+            print(rng.random_uniform(num_samples))
+        elif choice == 4:
+            mean = float(input("Enter mean: "))
+            std_dev = float(input("Enter standard deviation: "))
+            num_samples = int(input("Enter number of samples: "))
+            print(rng.random_normal(mean, std_dev, num_samples))
+        elif choice == 5:
+            rate = float(input("Enter rate: "))
+            num_samples = int(input("Enter number of samples: "))
+            print(rng.random_exponential(rate, num_samples))
+        elif choice == 6:
+            n = int(input("Enter number of trials: "))
+            p = float(input("Enter probability of success: "))
+            num_samples = int(input("Enter number of samples: "))
+            print(rng.random_binomial(n, p, num_samples))
+        elif choice == 7:
+            lam = float(input("Enter lambda: "))
+            num_samples = int(input("Enter number of samples: "))
+            print(rng.random_poisson(lam, num_samples))
+        elif choice == 8:
+            p = float(input("Enter probability of success: "))
+            num_samples = int(input("Enter number of samples: "))
+            print(rng.random_geometric(p, num_samples))
+        elif choice == 9:
+            choices = input("Enter choices separated by space: ").split()
+            probabilities = list(map(float, input("Enter probabilities separated by space: ").split()))
+            num_samples = int(input("Enter number of samples: "))
+            print(rng.random_choice(choices, probabilities, num_samples))
+        elif choice == 10:
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
