@@ -34,14 +34,18 @@ Another aspect I'm researching is how to seed the generator with specific values
 
 ## After Full Info Gathering and Research
 
-#### 1
+#### Building a Basic Random Number Generator
 To kick off, I'll start with a simple implementation using the current time as a seed. The core mathematics here will involve implementing a linear congruential generator (LCG) algorithm. This algorithm uses multiplication, addition, and modulus operations to produce a sequence of pseudo-random numbers.
 
-#### 2
+#### Enhancing Randomness and Distribution
 As I progress, I'll explore methods to improve the randomness and distribution of the generated numbers. This stage may involve experimenting with more advanced algorithms such as the Mersenne Twister or cryptographic algorithms like Blum Blum Shub. I'll dive into the mathematics behind these algorithms to understand how they achieve better randomness.
 
-#### 3
+#### Implementing Integer Generation and Custom Ranges
 Next, I'll extend the generator to produce integers and allow users to specify custom ranges for the generated numbers. This will require additional mathematical operations such as scaling, rounding, and possibly implementing transformation functions to map decimal outputs to integers within specified ranges.
+
+#### Seeding and Reproducibility
+To ensure reproducibility of results, I'll implement methods to seed the generator with specific values. This will allow for the generation of the same sequence of random numbers, which is crucial for testing and debugging purposes. The mathematics involved here will focus on understanding how seeding affects the sequence generation and implementing mechanisms for consistent output.
+
 
 ---
 
